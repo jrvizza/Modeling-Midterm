@@ -6,46 +6,41 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="javascript/jquery-1.12.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 
 <H1>
-<p style="text-align:left;">Room Dimensions<br>
-    <br>
-</p>
+    <p style="text-align:left;">Room Dimensions<br>
+        <br>
+    </p>
 </H1>
 
 <body>
 
 <p style="text-align:left;">
-<label for="length">Length (ft)</label>
-<input id="length" type="text"/><br>
+    <label for="length">Length (ft)</label>
+    <input id="length" type="text"/><br>
     <br>
 </p>
 
 <p style="text-align:left;">
-<label for="width">Width (ft)</label>
-<input id="width" type="text"/><br>
+    <label for="width">Width (ft)</label>
+    <input id="width" type="text"/><br>
     <br>
 </p>
 
 <p style="text-align:left;">
-<label for="height">Height (ft)</label>
-<input id="height" type="text"/><br>
+    <label for="height">Height (ft)</label>
+    <input id="height" type="text"/><br>
     <br>
 </p>
 
-<button type="button">Calculate</button><br>
+<button id="calculate_surface_area" type="button">Calculate SA and V</button>
+<br>
 <br>
 
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-s6z2{text-align:center}
-    .tg .tg-baqh{text-align:center;vertical-align:top}
-    .tg .tg-hgcj{font-weight:bold;text-align:center}
-    .tg .tg-yw4l{vertical-align:top}
-</style>
+
 <table class="tg">
     <tr>
         <th class="tg-hgcj" colspan="7">Surface Area (ft2)</th>
@@ -60,32 +55,27 @@
         <td class="tg-yw4l">Floor</td>
     </tr>
     <tr>
-        <td class="tg-baqh"></td>
-        <td class="tg-baqh"></td>
-        <td class="tg-yw4l"></td>
-        <td class="tg-yw4l"></td>
-        <td class="tg-yw4l"></td>
-        <td class="tg-yw4l"></td>
-        <td class="tg-yw4l"></td>
+        <td id="surface_area_total" class="tg-baqh"></td>
+        <td id="surface_area_front" class="tg-baqh"></td>
+        <td id="surface_area_back" class="tg-yw4l"></td>
+        <td id="surface_area_left" class="tg-yw4l"></td>
+        <td id="surface_area_right" class="tg-yw4l"></td>
+        <td id="surface_area_ceiling" class="tg-yw4l"></td>
+        <td id="surface_area_floor" class="tg-yw4l"></td>
     </tr>
-</table><br>
+</table>
+<br>
 <br>
 
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-s6z2{text-align:center}
-    .tg .tg-hgcj{font-weight:bold;text-align:center}
-</style>
 <table class="tg">
     <tr>
         <th class="tg-hgcj">Volume (ft3)</th>
     </tr>
     <tr>
-        <td class="tg-s6z2"></td>
+        <td id="volume" class="tg-s6z2"></td>
     </tr>
-</table><br>
+</table>
+<br>
 <br>
 
 <H1>
@@ -94,42 +84,77 @@
     </p>
 </H1>
 
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-s6z2{text-align:center}
-    .tg .tg-baqh{text-align:center;vertical-align:top}
-    .tg .tg-hgcj{font-weight:bold;text-align:center}
-</style>
-<table class="tg">
-    <tr>
-        <th class="tg-hgcj" colspan="2">Material of Each Surface</th>
-    </tr>
-    <tr>
-        <td class="tg-s6z2">Front wall</td>
-        <td class="tg-baqh">Back wall</td>
-    </tr>
-    <tr>
-        <td class="tg-baqh">Left wall</td>
-        <td class="tg-baqh">Right wall</td>
-    </tr>
-    <tr>
-        <td class="tg-baqh">Ceiling</td>
-        <td class="tg-baqh">Floor</td>
-    </tr>
-</table><br>
+
+<!-- This is where we renter the drop downs for each of our surfaces -->
+
+<table id="surface_materials_table" class="tg">
+    <th class="tg-amwm">Surface</th>
+    <th class="tg-amwm">Material</th>
+    <th class="tg-amwm">125</th>
+    <th class="tg-amwm">250</th>
+    <th class="tg-amwm">500</th>
+    <th class="tg-amwm">1,000</th>
+    <th class="tg-amwm">2,000</th>
+    <th class="tg-amwm">4,000</th>
+</table>
+
+<script type="text/javascript">
+    var surfaces = ["front_wall", "left_wall", "ceiling", "back_wall", "right_wall", "floor"];
+    var surfaceMaterialsTable = $('#surface_materials_table');
+
+    for (var i = 0; i < surfaces.length; i++) {
+        var currentSurface = surfaces[i];
+        surfaceMaterialsTable.append(
+                '<tr>' +
+                '   <td>' + currentSurface + '</td>' +
+                '   <td>' +
+                '      <select id="' + currentSurface + '_material' + '">' +
+                '         <option value="wood">wood</option>' +
+                '         <option value="carpet">carpet</option>' +
+                '         <option value="brick">brick</option>' +
+                '         <option value="concrete">concrete</option>' +
+                '         <option value="sheetrock">sheetrock</option>' +
+                '         <option value="water">water</option>' +
+                '         <option value="glass">glass</option>' +
+                '         <option value="plaster">plaster</option>' +
+                '         <option value="marble">marble</option>' +
+                '         <option value="fiberglass">fiberglass</option>' +
+                '      </select>' +
+                '   </td>' +
+                '   <td id="' + currentSurface + '_125' + '"></td>td>' +
+                '   <td id="' + currentSurface + '_250' + '"></td>td>' +
+                '   <td id="' + currentSurface + '_500' + '"></td>td>' +
+                '   <td id="' + currentSurface + '_1000' + '"></td>td>' +
+                '   <td id="' + currentSurface + '_2000' + '"></td>td>' +
+                '   <td id="' + currentSurface + '_4000' + '"></td>td>' +
+                '</tr>'
+        );
+    }
+
+    surfaceMaterialsTable.append('' +
+            '<tr id="frequency_total">' +
+            '   <td>Total</td>' +
+            '   <td></td>' +
+            '</tr>'
+    );
+
+    var frequencies = ["125", "250", "500", "1000", "2000", "4000"];
+    for (var i = 0; i < frequencies.length; i++) {
+        var currentFrequency = frequencies[i];
+        var totalSurfaceRow = $('#frequency_total');
+        totalSurfaceRow.append('' +
+                '<td id="' + currentFrequency + '_total' + '"></td>'
+        )
+    }
+
+
+</script>
+
+<button id="calculate_total_absorption">calculate total absorption</button>
+
+<br>
 <br>
 
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-s6z2{text-align:center}
-    .tg .tg-baqh{text-align:center;vertical-align:top}
-    .tg .tg-hgcj{font-weight:bold;text-align:center}
-    .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
-</style>
 <table class="tg">
     <tr>
         <th class="tg-hgcj" colspan="7">Absorption Coefficient (a)</th>
@@ -237,16 +262,10 @@
         <td class="tg-baqh">0.99</td>
         <td class="tg-baqh">0.99</td>
     </tr>
-</table><br>
+</table>
+<br>
 <br>
 
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-hgcj{font-weight:bold;text-align:center}
-    .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
-</style>
 <table class="tg">
     <tr>
         <th class="tg-hgcj" colspan="7">Reverberation Time (RT60)</th>
@@ -262,57 +281,39 @@
     </tr>
     <tr>
         <td class="tg-amwm">Time (s)</td>
-        <td class="tg-amwm"></td>
-        <td class="tg-amwm"></td>
-        <td class="tg-amwm"></td>
-        <td class="tg-amwm"></td>
-        <td class="tg-amwm"></td>
-        <td class="tg-amwm"></td>
+        <td id="reverb_time_125" class="tg-amwm">Time (s)</td>
+        <td id="reverb_time_250" class="tg-amwm"></td>
+        <td id="reverb_time_500" class="tg-amwm"></td>
+        <td id="reverb_time_1000" class="tg-amwm"></td>
+        <td id="reverb_time_2000" class="tg-amwm"></td>
+        <td id="reverb_time_4000" class="tg-amwm"></td>
     </tr>
-</table><br>
+</table>
+<br>
 <br>
 
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-s6z2{text-align:center}
-    .tg .tg-hgcj{font-weight:bold;text-align:center}
-</style>
 <table class="tg">
     <tr>
         <th class="tg-hgcj">RT average (s)</th>
     </tr>
     <tr>
-        <td class="tg-s6z2"></td>
+        <td id="rt_average" class="tg-s6z2"></td>
     </tr>
-</table><br>
+</table>
+<br>
 <br>
 
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-s6z2{text-align:center}
-    .tg .tg-hgcj{font-weight:bold;text-align:center}
-</style>
 <table class="tg">
     <tr>
         <th class="tg-hgcj">Schroeder Frequency (Hz)</th>
     </tr>
     <tr>
-        <td class="tg-s6z2"></td>
+        <td id="schroeder_frequency" class="tg-s6z2"></td>
     </tr>
-</table><br>
+</table>
+<br>
 <br>
 
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-hgcj{font-weight:bold;text-align:center}
-    .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
-</style>
 <table class="tg">
     <tr>
         <th class="tg-hgcj" colspan="5">Modal Analysis</th>
@@ -326,17 +327,15 @@
     </tr>
     <tr>
         <td class="tg-amwm">Frequency (Hz)</td>
-        <td class="tg-amwm"></td>
-        <td class="tg-amwm"></td>
-        <td class="tg-amwm"></td>
-        <td class="tg-amwm"></td>
+        <td id="mode_1" class="tg-amwm"></td>
+        <td id="mode_2" class="tg-amwm"></td>
+        <td id="mode_3" class="tg-amwm"></td>
+        <td id="mode_4" class="tg-amwm"></td>
     </tr>
 </table>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<button id="final_calculation">Final Calculation</button>
 
-<script>
-
-</script>
+<script type="text/javascript" src="javascript/surface_area.js"></script>
 </body>
 </html>
